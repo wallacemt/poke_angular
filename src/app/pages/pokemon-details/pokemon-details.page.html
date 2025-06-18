@@ -1,13 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>pokemon-details</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ pokemonData?.name | titlecase }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pokemon-details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content *ngIf="!isLoading">
+  <ion-card>
+    <img
+      [src]="pokemonData?.sprites.front_default"
+      alt="{{ pokemonData.name }}"
+    />
+
+    <ion-card-header>
+      <ion-card-title>{{ pokemonData.name | titlecase }}</ion-card-title>
+      <ion-card-subtitle>ID: {{ pokemonData.id }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>
+        <strong>Tipos:</strong> {{ pokemonData.types.map(t =>
+        t.type.name).join(', ') }}
+      </p>
+      <p>
+        <strong>Habilidades:</strong> {{ pokemonData.abilities.map(a =>
+        a.ability.name).join(', ') }}
+      </p>
+      <p>
+        <strong>Movimentos:</strong> {{ pokemonData.moves.slice(0, 6).map(m =>
+        m.move.name).join(', ') }}...
+      </p>
+      <p><strong>Peso:</strong> {{ pokemonData.weight / 10 }} kg</p>
+      <p><strong>Altura:</strong> {{ pokemonData.height / 10 }} m</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-content *ngIf="isLoading">
+  <ion-spinner name="crescent"></ion-spinner>
+  <p>Carregando detalhes...</p>
 </ion-content>
