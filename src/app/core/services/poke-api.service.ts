@@ -32,7 +32,7 @@ export class PokeApiService {
     // return of(pagedData).pipe(delay(500));
   }
 
-  getPokemonDetails(name: string): Observable<PokemonDetails> {
+  getPokemonDetails(name: string | number): Observable<PokemonDetails> {
     return this.http.get<PokemonDetails>(`${this.baseUrl}/pokemon/${name}`);
     // const mockDetails: PokemonDetails = {
     //   id: 1,

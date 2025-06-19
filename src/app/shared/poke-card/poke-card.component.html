@@ -1,0 +1,35 @@
+<div
+  (click)="onCardClick()"
+  class="pokemon-card bg-white rounded-xl shadow-md overflow-hidden border-2 border-gray-200 hover:border-red-500 cursor-pointer transition-all duration-300"
+>
+  <div class="p-4">
+    <div class="flex justify-between items-start mb-2">
+      <span class="text-gray-500 text-sm">
+        #{{ pokemon.id.toString().padStart(3, "0") }}
+      </span>
+      <span
+        class="text-xs px-2 py-1 rounded-full text-white {{
+          getTypeColor(pokemon.types[0].type.name)
+        }}"
+      >
+        {{ pokemon.types[0].type.name.toUpperCase() }}
+        <span *ngIf="pokemon.types.length > 1">
+          +{{ pokemon.types.length - 1 }}
+        </span>
+      </span>
+    </div>
+    <div class="flex justify-center">
+      <img
+        [src]="
+          pokemon.sprites.other['official-artwork'].front_default ||
+          pokemon.sprites.front_default
+        "
+        [alt]="pokemon.name"
+        class="h-32 w-32 object-contain"
+      />
+    </div>
+    <h3 class="text-center font-bold text-lg mt-2 capitalize">
+      {{ pokemon.name }}
+    </h3>
+  </div>
+</div>

@@ -129,7 +129,7 @@ export class PokemonDetailsPage implements OnInit {
   }
 
   goToDetails(id: number) {
-    this.navCtrl.navigateForward(`/pokemon-details/${id}`);
+    this.navCtrl.navigateForward(`/pokemon/details/${id}`);
   }
   getStatColor(statName: string): string {
     const colors: any = {

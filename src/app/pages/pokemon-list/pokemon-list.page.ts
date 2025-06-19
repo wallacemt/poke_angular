@@ -3,23 +3,26 @@ import { CommonModule, NgFor } from '@angular/common';
 import { PokemonDetails } from 'src/app/models/pokemon.model';
 import { PokeApiService } from 'src/app/core/services/poke-api.service';
 import { NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
-import { PokemonDetailsPage } from '../pokemon-details/pokemon-details.page';
 import { forkJoin } from 'rxjs';
+import { addIcons } from 'ionicons';
+import { heartCircle } from 'ionicons/icons';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { PokeCardComponent } from 'src/app/shared/poke-card/poke-card.component';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.page.html',
   styleUrls: ['./pokemon-list.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, NgFor, FormsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    NgFor,
+    FormsModule,
+    HeaderComponent,
+    PokeCardComponent,
+  ],
 })
 export class PokemonListPage implements OnInit {
   pokemons: PokemonDetails[] = [];
@@ -30,12 +33,12 @@ export class PokemonListPage implements OnInit {
   filteredPokemons: PokemonDetails[] = [];
   constructor(
     private pokeApiService: PokeApiService,
-    private navCtrl: NavController,
-    private routes: ActivatedRoute
+    private navCtrl: NavController
   ) {}
 
   ngOnInit() {
     this.loadPokemons();
+    addIcons({ heartCircle });
   }
 
   loadPokemons() {
@@ -65,14 +68,16 @@ export class PokemonListPage implements OnInit {
       },
     });
   }
-
+  toFavorites() {
+    this.navCtrl.navigateForward('/pokemon/favorites');
+  }
   getPokemonId(url: string): string {
     const parts = url.split('/');
     return parts[parts.length - 2];
   }
 
   goToDetails(pokemon: string) {
-    this.navCtrl.navigateForward(`/pokemon-details/${pokemon}`);
+    this.navCtrl.navigateForward(`/pokemon/details/${pokemon}`);
   }
   onSearchChange() {
     if (this.searchTerm === '') {
@@ -97,6 +102,11 @@ export class PokemonListPage implements OnInit {
   nextPage() {
     this.offset += this.limit;
     this.loadPokemons();
+  }
+
+  onSearchChangeFromHeader(term: string) {
+    this.searchTerm = term;
+    this.onSearchChange();
   }
 
   prevPage() {
