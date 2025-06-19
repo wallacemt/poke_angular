@@ -1,11 +1,33 @@
-ion-card img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  margin: 0 auto;
-  display: block;
+.stat-bar {
+  height: 8px;
+  border-radius: 4px;
+}
+.title-font {
+  font-family: "Press Start 2P", cursive;
+}
+.pokemon-image {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+}
+.pokemon-image:hover {
+  transform: scale(1.05);
 }
 
-p {
-  margin: 8px 0;
+.evolution-stage {
+  transition: all 0.3s ease;
+}
+.evolution-stage:hover {
+  transform: translateY(-5px);
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
