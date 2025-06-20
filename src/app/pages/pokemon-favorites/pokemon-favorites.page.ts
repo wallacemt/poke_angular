@@ -1,16 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 import { PokeApiService } from 'src/app/core/services/poke-api.service';
 import { NavController } from '@ionic/angular';
+import { PokeCardComponent } from 'src/app/shared/poke-card/poke-card.component';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { HeaderComponent } from 'src/app/shared/header/header.component';
 @Component({
   selector: 'app-pokemon-favorites',
   templateUrl: './pokemon-favorites.page.html',
   styleUrls: ['./pokemon-favorites.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    PokeCardComponent,
+    LoadingComponent,
+    HeaderComponent,
+    LoadingComponent,
+    NgIf,
+  ],
 })
 export class PokemonFavoritesPage implements OnInit {
   favoritesPokemons: any[] = [];

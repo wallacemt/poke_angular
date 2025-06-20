@@ -38,9 +38,9 @@ export class PokeCardComponent implements OnInit {
     return colors[type] || 'gray';
   }
   onCardClick() {
+    console.log(this.pokemon);
     this.cardClick.emit(this.pokemon.name);
   }
   constructor() {}
-
   ngOnInit() {}
 }

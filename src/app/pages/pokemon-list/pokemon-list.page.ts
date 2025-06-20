@@ -10,6 +10,7 @@ import { addIcons } from 'ionicons';
 import { heartCircle } from 'ionicons/icons';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
 import { PokeCardComponent } from 'src/app/shared/poke-card/poke-card.component';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.page.html',
@@ -22,6 +23,7 @@ import { PokeCardComponent } from 'src/app/shared/poke-card/poke-card.component'
     FormsModule,
     HeaderComponent,
     PokeCardComponent,
+    LoadingComponent,
   ],
 })
 export class PokemonListPage implements OnInit {

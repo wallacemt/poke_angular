@@ -10,7 +10,7 @@ import { heartCircle } from 'ionicons/icons';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, NgIf, FormsModule, HeaderComponent],
+  imports: [CommonModule, IonicModule, NgIf, FormsModule],
 })
 export class HeaderComponent implements OnInit {
   searchTerm: string = '';

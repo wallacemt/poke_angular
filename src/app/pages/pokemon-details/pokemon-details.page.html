@@ -1,114 +1,124 @@
-<ion-content class="bg-gray-100">
-  <div
-    class="container mx-auto lg:px-2 lg:py-2"
-    *ngIf="!isLoading && pokemonData"
-  >
-    <div
-      class="lg:rounded-2xl shadow-xl overflow-hidden"
-      [ngStyle]="{ 'background': 'linear-gradient(to right, ' + getTypeColor(pokemonData.types[0].type.name, false) + ', #e3e3e3)' }"
-    >
-      <div class="flex items-center justify-end mr-4 py-4">
-        <div class="border-b-2 border-red-600">
-          <button
-            slot="start"
-            *ngIf="pokemonData"
-            (click)="goBack()"
-            class="hover:scale-105 transition duration-300"
-          >
-            <ion-icon name="close-circle" size="large"></ion-icon>
-          </button>
+<div class="bg-gray-900 overflow-x-auto flex items-center justify-center p-4">
+  <div class="pokedex-container w-full max-w-2xl h-full">
+    <div class="bg-red-100 rounded-lg shadow-2xl border-4 border-red-800">
+      <header class="flex items-center justify-between p-4 bg-red-700">
+        <div class="flex">
+          <div
+            class="w-4 h-4 rounded-full bg-blue-400 border-2 border-blue-600 mr-2"
+          ></div>
+          <div
+            class="w-3 h-3 rounded-full bg-yellow-400 border-2 border-yellow-600 mr-2"
+          ></div>
+          <div
+            class="w-3 h-3 rounded-full bg-green-400 border-2 border-green-600"
+          ></div>
         </div>
-      </div>
-      <div class="flex flex-col md:flex-row">
+
         <div
-          class="w-full md:w-1/2 p-8 flex flex-col items-center justify-center"
+          class="ml-auto text-white font-bold text-lg title-font text-center self-center mx-auto"
         >
-          <img
-            [src]="pokemonData.sprites.other['official-artwork'].front_default"
-            [alt]="pokemonData.name"
-            class="w-64 h-64 lg:h-[75%] lg:w-[75%] pokemon-image"
-          />
-          <div class="mt-6 flex gap-2">
-            <span
-              class="px-4 py-1 bg-opacity-30 rounded-full text-white font-bold"
-              [ngClass]="getTypeColor(pokemonData.types[0].type.name)"
-            >
-              #{{ pokemonData.id | number:'3.0' }}
-            </span>
-            <span
-              *ngFor="let type of pokemonData.types"
-              class="px-4 py-1 rounded-full text-white font-bold"
-              [ngClass]="getTypeColor(type.type.name)"
-            >
-              {{ type.type.name | titlecase }}
-            </span>
-          </div>
+          POKÉDEX
         </div>
+      </header>
+      <div class="p-4 bg-red-600">
         <div
-          class="w-full md:w-1/2 p-8 bg-white bg-opacity-30 rounded-xl"
-          [ngStyle]="{ 'background-color': getTypeColor(pokemonData.types[0].type.name, false) + '90' }"
+          class="bg-gray-800 rounded-lg p-4 border-4 border-gray-700 relative"
+          [ngStyle]="{ 'animation': 'screenGlow 3s infinite' }"
         >
           <div
-            class="flex md:flex-row flex-col gap-2 items-center justify-between"
+            *ngIf="isLoading"
+            class="inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center"
           >
-            <h2 class="text-3xl font-bold text-gray-800 capitalize title-font">
-              {{ pokemonData.name }}
-            </h2>
-
+            <app-loading></app-loading>
+          </div>
+          <div
+            *ngIf="!isLoading && pokemonData"
+            class="flex flex-col md:flex-row"
+          >
             <div
-              (click)="addToFavorites(pokemonData)"
-              class="px-4 py-2 rounded-full bg-red-600 flex items-center justify-center gap-2 text-white font-bold hover:bg-red-700 transition duration-300 cursor-pointer"
-              expand="block"
+              class="w-full md:w-1/2 flex flex-col items-center justify-center p-4"
             >
-              <ion-icon name="heart-outline" slot="start"></ion-icon>
-              {{ isFavorite(pokemonData.id) ? 'Remover dos Favoritos' :
-              'Adicionar aos Favoritos' }}
-            </div>
-          </div>
-          <div class="mb-6">
-            <h3 class="text-lg font-semibold text-gray-800 mb-3">Stats</h3>
-            <div *ngFor="let stat of pokemonData.stats" class="mb-2">
-              <div class="flex justify-between mb-1">
-                <span class="text-sm font-medium text-gray-900"
-                  >{{ stat.stat.name | titlecase }}</span
-                >
-                <span class="text-sm font-medium text-gray-700"
-                  >{{ stat.base_stat }}</span
-                >
+              <div class="bg-gray-700 rounded-full p-2 mb-4">
+                <img
+                  *ngIf="pokemonData"
+                  [src]="pokemonData.sprites.other['official-artwork'].front_default"
+                  [alt]="pokemonData.name"
+                  class="w-60 h-60 object-contain"
+                />
               </div>
-              <div class="w-full bg-gray-300 rounded-full h-2">
-                <div
-                  class="h-2 rounded-full"
-                  [ngStyle]="{ 'width': stat.base_stat + '%', 'background-color': getStatColor(stat.stat.name) }"
-                ></div>
+              <div class="flex space-x-2 mb-4">
+                <span
+                  *ngFor="let type of pokemonData.types"
+                  class="px-3 py-1 rounded-full text-white font-bold text-sm"
+                  [ngClass]="getTypeColor(type.type.name)"
+                >
+                  {{ type.type.name | titlecase }}
+                </span>
               </div>
             </div>
-          </div>
 
-          <div class="grid grid-cols-2 gap-4 text-gray-900">
-            <div>
-              <h4 class="text-sm font-semibold">Height</h4>
-              <p class="text-gray-700">{{ pokemonData.height / 10 }} m</p>
-            </div>
-            <div>
-              <h4 class="text-sm font-semibold">Weight</h4>
-              <p class="text-gray-700">{{ pokemonData.weight / 10 }} kg</p>
-            </div>
-            <div>
-              <h4 class="text-sm font-semibold">Abilities</h4>
-              <p class="text-gray-700">{{ getAbilities() }}</p>
-            </div>
-            <div>
-              <h4 class="text-sm font-semibold">Types</h4>
-              <p class="text-gray-700">{{ getTypes()}}</p>
-            </div>
-            <div>
-              <h4 class="text-sm font-semibold">Base Experience</h4>
-              <p class="text-gray-700">{{ pokemonData.base_experience }}xp</p>
+            <div class="w-full md:w-1/2 p-4 text-white">
+              <h2 class="text-2xl font-bold mb-2 text-yellow-300 capitalize">
+                {{ pokemonData.name }}
+              </h2>
+              <p class="text-gray-300 mb-4">
+                #{{ pokemonData.id | number:'3.0' }}
+              </p>
+
+              <div class="grid grid-cols-2 gap-2 mb-4">
+                <div>
+                  <p class="text-gray-400 text-sm">Height</p>
+                  <p>{{ pokemonData.height / 10 }} m</p>
+                </div>
+                <div>
+                  <p class="text-gray-400 text-sm">Weight</p>
+                  <p>{{ pokemonData.weight / 10 }} kg</p>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <p class="text-gray-400 text-sm">Abilities</p>
+                <div class="flex flex-wrap gap-2 m-1">
+                  <p
+                    *ngFor="let habilites of pokemonData.abilities"
+                    class="badge border-none text-gray-100 text-sm p-2"
+                    [ngClass]="getTypeColor(pokemonData.types[0].type.name, true, 900)"
+                  >
+                    {{ habilites.ability.name | titlecase }}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-gray-400 text-sm mb-2">Stats</p>
+                <div *ngFor="let stat of pokemonData.stats" class="mb-2">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-sm font-medium text-gray-300"
+                      >{{ stat.stat.name | titlecase }}</span
+                    >
+                    <span class="text-sm font-medium text-gray-200"
+                      >{{ stat.base_stat }}</span
+                    >
+                  </div>
+                  <div class="w-full bg-gray-300 rounded-full h-2">
+                    <div
+                      class="h-2 rounded-full max-w-full"
+                      [ngStyle]="{ 'width': stat.base_stat + '%', 'background-color': getStatColor(stat.stat.name) }"
+                    ></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="flex justify-between mt-4">
+        </div>
+      </div>
+
+      <!-- Painel de Botões -->
+      <div class="bg-red-900 p-4">
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex justify-around w-full items-center">
             <button
+              *ngIf="pokemonData"
               class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center"
               (click)="goToDetails(pokemonData.id - 1)"
               [disabled]="pokemonData.id === 1"
@@ -121,6 +131,7 @@
               Prev
             </button>
             <button
+              *ngIf="pokemonData"
               class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center"
               (click)="goToDetails(pokemonData.id + 1)"
             >
@@ -132,34 +143,51 @@
               ></ion-icon>
             </button>
           </div>
-        </div>
-      </div>
-      <div
-        class="overflow-y-auto overflow-x-hidden max-h-60 mt-8 p-4  rounded-lg shadow-md"
-        [ngStyle]="{ 'background': 'linear-gradient(to right, ' + getTypeColor(pokemonData.types[0].type.name, false) + ', #e5e5e5)' }"
-      >
-        <h3
-          class="text-2xl title-font font-semibold text-gray-800 mb-4 text-center"
-        >
-          Moves
-        </h3>
-        <ul class="grid grid-cols-2 gap-4">
-          <li
-            *ngFor="let move of pokemonData.moves"
-            class="text-gray-800 bg-gray-50 hover:bg-gray-100 p-3 rounded-md transition-transform transform hover:scale-105"
-          >
-            <span class="block font-medium"
-              >{{ move.move.name | titlecase }}</span
+          <div class="flex space-x-2">
+            <button
+              (click)="goBack()"
+              class="control-btn bg-yellow-500 hover:bg-yellow-700 text-white px-3 py-1 rounded shadow"
             >
-          </li>
-        </ul>
+              <ion-icon name="arrow-undo-outline" class="text-black"></ion-icon>
+            </button>
+            <div
+              *ngIf="pokemonData"
+              (click)="addToFavorites(pokemonData)"
+              class="px-4 py-2 rounded-full bg-red-600 flex items-center justify-center gap-2 text-white font-bold hover:bg-red-700 transition duration-300 cursor-pointer"
+              expand="block"
+            >
+              <ion-icon name="heart-outline" slot="start"></ion-icon>
+              {{ isFavorite(pokemonData.id) ? 'Favoritar' : 'Remover' }}
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <button class="action-btn bg-gray-500 hover:bg-gray-400">A</button>
+          <button class="action-btn bg-gray-500 hover:bg-gray-400">B</button>
+          <button class="action-btn bg-gray-500 hover:bg-gray-400">C</button>
+          <button class="action-btn bg-gray-800 hover:bg-gray-900 text-white">
+            Info
+          </button>
+          <button class="action-btn bg-gray-800 hover:bg-gray-900 text-white">
+            Moves
+          </button>
+          <button class="action-btn bg-gray-800 hover:bg-gray-900 text-white">
+            Evolve
+          </button>
+        </div>
+        <div class="mt-4 flex justify-center">
+          <div
+            class="bg-black rounded-full p-2 w-16 flex justify-center items-center"
+          >
+            <div
+              class="bg-gray-700 rounded-full w-12 h-12 flex items-center justify-center"
+            >
+              <div class="bg-red-500 rounded-full w-8 h-8"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <div *ngIf="isLoading" class="flex justify-center items-center py-20">
-    <div
-      class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"
-    ></div>
-  </div>
-</ion-content>
+</div>

@@ -22,8 +22,10 @@ export interface PokemonDetails {
     };
   };
   types: {
+    slot: number,
     type: {
       name: string;
+      url: string
     };
   }[];
   abilities: {
@@ -37,12 +39,14 @@ export interface PokemonDetails {
   moves: {
     move: {
       name: string;
+       url: string;
     };
   }[];
   stats: {
     base_stat: number;
     stat: {
       name: string;
+       url: string;
     };
   }[];
 }
