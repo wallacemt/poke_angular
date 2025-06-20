@@ -1,40 +1,42 @@
-<header class="bg-red-600 shadow-lg">
-  <div class="container mx-auto px-4 py-6">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-2">
-      <div class="flex items-center mb-4 md:mb-0" (click)="goHome()">
-        <div class="relative w-12 h-12 mr-4">
-          <div
-            class="pokeball-bg absolute inset-0 rounded-full border-4 border-black"
-          ></div>
-          <div
-            class="pokeball-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-black"
-          ></div>
+<ion-toolbar>
+  <header class="bg-red-600 shadow-lg">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2">
+        <div class="flex items-center mb-4 md:mb-0" (click)="goHome()">
+          <div class="relative w-12 h-12 mr-4">
+            <div
+              class="pokeball-bg absolute inset-0 rounded-full border-4 border-black"
+            ></div>
+            <div
+              class="pokeball-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-black"
+            ></div>
+          </div>
+          <h1
+            class="title-font text-white text-xl md:text-2xl cursor-pointer hover:scale-105 ease-in-out transition duration-300"
+          >
+            POKÉDEX
+          </h1>
         </div>
-        <h1
-          class="title-font text-white text-xl md:text-2xl cursor-pointer hover:scale-105 ease-in-out transition duration-300"
+
+        <button
+          (click)="toFavorites()"
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow flex items-center justify-center space-x-2"
         >
-          POKÉDEX
-        </h1>
-      </div>
+          <ion-icon name="heart-circle" size="large"></ion-icon>
+          <span>Favoritos</span>
+        </button>
 
-      <button
-        (click)="toFavorites()"
-        class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow flex items-center justify-center space-x-2"
-      >
-        <ion-icon name="heart-circle" size="large"></ion-icon>
-        <span>Favoritos</span>
-      </button>
-
-      <div class="relative w-full md:w-64" *ngIf="showSearch">
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          id="search"
-          (input)="onSearchChange()"
-          placeholder="Pesquisar Pokémon..."
-          class="w-full px-4 py-2 rounded-full border-2 border-black bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        />
+        <div class="relative w-full md:w-64" *ngIf="showSearch">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            id="search"
+            (input)="onSearchChange()"
+            placeholder="Pesquisar Pokémon..."
+            class="w-full px-4 py-2 rounded-full border-2 border-black bg-gray-100 text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
+        </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
+</ion-toolbar>
