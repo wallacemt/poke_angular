@@ -1,8 +1,18 @@
 <app-header [showSearch]="false"></app-header>
-<ion-content class="bg-gray-100">
+<ion-content class="bg-gray-100" (loaded)="loadFavorites()">
   <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between w-full items-center mb-8">
-      <h2 class="title-font text-2xl text-gray-800">Pokémon Favorite List</h2>
+      <h2 class="title-font text-md md:text-2xl text-gray-800 mx-auto">
+        Pokémon Favorite List
+      </h2>
+      <div
+        *ngIf="!isLoading && favoritesPokemons.length > 0"
+        class="bg-red-600 text-white font-semibold flex items-center px-2 py-1 rounded-full cursor-pointer"
+        (click)="clearFavorites()"
+      >
+        <ion-icon name="trash-outline" class="mr-2"></ion-icon>
+        <span>Limpar Favoritos</span>
+      </div>
     </div>
     <div
       *ngIf="!isLoading && favoritesPokemons.length === 0"
@@ -19,6 +29,7 @@
     >
       <div *ngFor="let pokemon of favoritesPokemons">
         <app-poke-card
+          [isLoading]="isLoading"
           [pokemon]="pokemon"
           (cardClick)="goToDetails($event)"
         ></app-poke-card>

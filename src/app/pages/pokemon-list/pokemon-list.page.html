@@ -6,7 +6,7 @@
 <ion-content class="bg-gray-100">
   <div class="container mx-auto px-4 py-8">
     <div class="flex justify-between w-full items-center mb-8">
-      <h2 class="title-font text-2xl text-gray-800">Pokémon List</h2>
+      <h2 class="title-font text-md md:text-2xl text-gray-800">Pokémon List</h2>
       <div class="flex space-x-2">
         <button
           (click)="prevPage()"
@@ -25,7 +25,7 @@
     </div>
 
     <div *ngIf="isLoading" class="flex justify-center items-center py-20">
-          <app-loading></app-loading>
+      <app-loading></app-loading>
     </div>
 
     <div
@@ -34,6 +34,7 @@
     >
       <div *ngFor="let pokemon of filteredPokemons">
         <app-poke-card
+          [isLoading]="isLoading"
           [pokemon]="pokemon"
           (cardClick)="goToDetails($event)"
         ></app-poke-card>

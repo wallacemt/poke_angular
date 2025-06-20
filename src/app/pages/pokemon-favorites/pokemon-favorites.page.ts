@@ -8,6 +8,9 @@ import { NavController } from '@ionic/angular';
 import { PokeCardComponent } from 'src/app/shared/poke-card/poke-card.component';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { HeaderComponent } from 'src/app/shared/header/header.component';
+import { addIcons } from 'ionicons';
+import { trashOutline } from 'ionicons/icons';
+import { PokemonDetails } from 'src/app/models/pokemon.model';
 @Component({
   selector: 'app-pokemon-favorites',
   templateUrl: './pokemon-favorites.page.html',
@@ -30,35 +33,60 @@ export class PokemonFavoritesPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private apiService: PokeApiService
-  ) {}
+  ) {
+    addIcons({ trashOutline });
+  }
 
   ngOnInit() {
     this.loadFavorites();
   }
 
   loadFavorites() {
+    this.favoritesPokemons = [];
+    this.isLoading = true;
+
     const storedIds: number[] = JSON.parse(
       localStorage.getItem('favoritePokemons') || '[]'
     );
-    this.favoritesPokemons = [];
+
+    if (storedIds.length === 0) {
+      this.isLoading = false;
+      return;
+    }
+
+    let loadedCount = 0;
 
     storedIds.forEach((id) => {
       this.apiService.getPokemonDetails(id).subscribe({
         next: (data) => {
           this.favoritesPokemons.push(data);
-          this.isLoading = false;
+          loadedCount++;
+          if (loadedCount === storedIds.length) {
+            this.isLoading = false;
+          }
         },
         error: (error) => {
-          console.log('Erro ao carregar detalhes do pokemon', error);
-          this.isLoading = false;
+          console.log('Erro ao carregar detalhes do Pokémon:', error);
+          loadedCount++;
+          if (loadedCount === storedIds.length) {
+            this.isLoading = false;
+          }
         },
       });
     });
   }
+
   goHome() {
     this.navCtrl.navigateForward('/');
   }
   goToDetails(pokemon: string) {
     this.navCtrl.navigateForward(['pokemon/details', pokemon]);
+  }
+
+  clearFavorites() {
+    localStorage.removeItem('favoritePokemons');
+    this.favoritesPokemons = [];
+    this.isLoading = false;
+    console.log('Favoritos limpos!');
   }
 }

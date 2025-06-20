@@ -157,7 +157,7 @@
               expand="block"
             >
               <ion-icon name="heart-outline" slot="start"></ion-icon>
-              {{ isFavorite(pokemonData.id) ? 'Favoritar' : 'Remover' }}
+              {{ !isFavorite(pokemonData.id) ? 'Favoritar' : 'Remover' }}
             </div>
           </div>
         </div>
