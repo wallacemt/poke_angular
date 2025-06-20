@@ -2,7 +2,7 @@
   (click)="onCardClick()"
   class="pokemon-card bg-white rounded-xl shadow-md overflow-hidden border-2 border-gray-200 hover:border-red-500 cursor-pointer transition-all duration-300"
 >
-  <div *ngIf="isLoading" class="flex justify-center items-center py-20">
+  <div *ngIf="isLoading">
     <app-loading></app-loading>
   </div>
   <div class="p-4 relative" *ngIf="!isLoading">

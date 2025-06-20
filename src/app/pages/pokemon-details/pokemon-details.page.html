@@ -113,13 +113,14 @@
         </div>
       </div>
 
-      <!-- Painel de Botões -->
       <div class="bg-red-900 p-4">
-        <div class="flex justify-between items-center mb-4">
+        <div
+          class="flex md:flex-row flex-col md:space-y-0 space-y-4  space-x-2 items-center mb-4"
+        >
           <div class="flex justify-around w-full items-center">
             <button
               *ngIf="pokemonData"
-              class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center"
+              class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center w-full flex items-center"
               (click)="goToDetails(pokemonData.id - 1)"
               [disabled]="pokemonData.id === 1"
             >
@@ -128,32 +129,32 @@
                 size="large"
                 class="mr-2"
               ></ion-icon>
-              Prev
+              <span>Prev</span>
             </button>
             <button
               *ngIf="pokemonData"
-              class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center"
+              class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-5 py-2 rounded-full shadow-lg transform transition-transform hover:scale-105 flex items-center justify-end w-full"
               (click)="goToDetails(pokemonData.id + 1)"
             >
-              Next
               <ion-icon
                 size="large"
                 name="arrow-forward-circle-outline"
                 class="ml-2"
               ></ion-icon>
+              <span>Next</span>
             </button>
           </div>
-          <div class="flex space-x-2">
+          <div class="flex md:flex-row flex-col md:space-y-0 space-y-4 space-x-2 w-full" >
             <button
               (click)="goBack()"
-              class="control-btn bg-yellow-500 hover:bg-yellow-700 text-white px-3 py-1 rounded shadow"
+              class="control-btn bg-yellow-500 hover:bg-yellow-700 text-white px-3 py-1 rounded shadow w-full"
             >
               <ion-icon name="arrow-undo-outline" class="text-black"></ion-icon>
             </button>
             <div
               *ngIf="pokemonData"
               (click)="addToFavorites(pokemonData)"
-              class="px-4 py-2 rounded-full bg-red-600 flex items-center justify-center gap-2 text-white font-bold hover:bg-red-700 transition duration-300 cursor-pointer"
+              class="px-4 py-2 rounded-full bg-red-600 flex items-center justify-center gap-2 text-white font-bold hover:bg-red-700 transition duration-300 cursor-pointer w-full"
               expand="block"
             >
               <ion-icon name="heart-outline" slot="start"></ion-icon>

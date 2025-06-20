@@ -1,10 +1,9 @@
-<app-header
-  [showSearch]="true"
-  (searchChanged)="onSearchChangeFromHeader($event)"
-></app-header>
-
-<ion-content class="bg-gray-100">
-  <div class="container mx-auto px-4 py-8">
+<div class="bg-gray-100 h-full overflow-y-auto">
+  <app-header
+    [showSearch]="true"
+    (searchChanged)="onSearchChangeFromHeader($event)"
+  ></app-header>
+  <div class="container mx-auto px-4 py-8 relative">
     <div class="flex justify-between w-full items-center mb-8">
       <h2 class="title-font text-md md:text-2xl text-gray-800">Pokémon List</h2>
       <div class="flex space-x-2">
@@ -24,7 +23,7 @@
       </div>
     </div>
 
-    <div *ngIf="isLoading" class="flex justify-center items-center py-20">
+    <div *ngIf="isLoading">
       <app-loading></app-loading>
     </div>
 
@@ -48,4 +47,4 @@
       Nenhum Pokémon encontrado.
     </div>
   </div>
-</ion-content>
+</div>
