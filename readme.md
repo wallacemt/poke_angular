@@ -57,28 +57,20 @@ Por fim, criei **testes unitários** focados nas partes de lógica central (serv
 > Screenshots do projeto:
 
 ### Lista de Pokémon
+![PokeList](./static/list.gif)
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://res.cloudinary.com/dg9hqvlas/image/upload/v1750444240/list_q4nvtm.gif" style="width:50%;" alt="Pokemon Details"/>
-</div>
 
 ### Detalhes de um Pokémon
+![PokeDetails](./static/details.gif)
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://res.cloudinary.com/dg9hqvlas/image/upload/v1750444241/details_vpyieo.gif" style="width:50%;" alt="Pokemon Details"/>
-</div>
 
 ### Pokemon Favorito
+![PokeFavorite](./static/favorite.gif)
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://res.cloudinary.com/dg9hqvlas/image/upload/v1750444239/favorite_ppq8mz.gif" style="width:50%;" alt="Pokemon Details"/>
-</div>
 
 ### Pokemon Search
+![PokeSearch](./static/search.gif)
 
-<div style="display: flex; justify-content: center;">
-  <img src="https://res.cloudinary.com/dg9hqvlas/image/upload/v1750444230/search_tfgaau.gif" style="width:50%;" alt="Pokemon Details"/>
-</div>
 
 # 🧪 Testes Unitários
 
